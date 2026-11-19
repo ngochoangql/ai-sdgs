@@ -24,3 +24,6 @@ Thumbs.db
 tmp/
 .aisdgs-tmp*
 *.tmp
+*.blob
+dist/*.exe
+dist/*.bin

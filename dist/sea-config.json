@@ -1,5 +1,5 @@
 {
-  "main": "./aisdgs-standalone.mjs",
+  "main": "./aisdgs-standalone.cjs",
   "output": "./aisdgs-sea.blob",
   "disableExperimentalSEAWarning": true,
   "useCodeCache": false

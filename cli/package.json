@@ -12,10 +12,30 @@
   "scripts": {
     "embed": "node ./scripts/embed-bundle.ts",
     "build:release": "node ./scripts/embed-bundle.ts && node ./scripts/build-release.ts",
+    "build:sea": "npm run build:release && node ./scripts/build-sea.ts",
     "typecheck": "tsc --noEmit",
     "test": "node --test ./tests/**/*.test.ts",
+    "prepack": "npm run build:release && npm run typecheck && npm test",
     "start": "node ./src/main.ts"
   },
+  "files": [
+    "bin",
+    "src",
+    "scripts",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "ai-sdgs",
+    "governance",
+    "ai-agents",
+    "mcp",
+    "claude",
+    "cursor",
+    "compliance"
+  ],
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/node": "^26.6.6",

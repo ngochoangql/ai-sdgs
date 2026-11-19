@@ -1,0 +1,58 @@
+name: 'AI-SDGS Governance Gate'
+description: 'Enforce AI Software Development Governance Standard (AI-SDGS) invariants, cryptographic baseline lock, and Ring 3 CI gates.'
+author: 'AI-SDGS Governance Working Group'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  strict:
+    description: 'Enforce strict zero-warning compliance policy (treat all warnings as errors).'
+    required: false
+    default: 'true'
+  working-directory:
+    description: 'Target repository workspace root directory.'
+    required: false
+    default: '.'
+  summary:
+    description: 'Render Markdown compliance report to GitHub Actions Step Summary ($GITHUB_STEP_SUMMARY).'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js v24
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+
+    - name: Verify Level 1 Standard Lockfile Integrity (STD-001-R05)
+      shell: bash
+      run: |
+        node "${{ github.action_path }}/dist/aisdgs-standalone.mjs" standard verify-lock --cwd "${{ inputs.working-directory }}"
+
+    - name: Run 8-Stage Deterministic L2 Validator (STD-009-R04)
+      shell: bash
+      run: |
+        STRICT_FLAG=""
+        if [ "${{ inputs.strict }}" = "true" ]; then
+          STRICT_FLAG="--strict"
+        fi
+        node "${{ github.action_path }}/dist/aisdgs-standalone.mjs" validate $STRICT_FLAG --cwd "${{ inputs.working-directory }}"
+
+    - name: Verify Cryptographic Project Baseline (STD-005-R04..05)
+      shell: bash
+      run: |
+        node "${{ github.action_path }}/dist/aisdgs-standalone.mjs" baseline verify --cwd "${{ inputs.working-directory }}"
+
+    - name: Publish Step Summary
+      if: always() && inputs.summary == 'true'
+      shell: bash
+      run: |
+        if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+          echo "## 🛡️ AI-SDGS Governance Compliance Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          node "${{ github.action_path }}/dist/aisdgs-standalone.mjs" report --format md --cwd "${{ inputs.working-directory }}" >> "$GITHUB_STEP_SUMMARY" || true
+        fi

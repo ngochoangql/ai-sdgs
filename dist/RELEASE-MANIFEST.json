@@ -4,7 +4,7 @@
   "standard_version": "1.0.0",
   "release_id": "ai-sdgs-core-1.0.0",
   "hash_normalization": "SHA256-UTF8-LF",
-  "generated_at": "2026-11-19T04:33:14.152Z",
+  "generated_at": "2026-11-19T04:43:21.396Z",
   "bundle_file_count": 44,
   "files": [
     {
@@ -189,8 +189,8 @@
     },
     {
       "path": "templates/ci/github-aisdgs-gate.yml",
-      "sha256": "1e645a312892e0fd78d0d05d3661ab36d641dd9dd6a592ed49a0cc26638a59fa",
-      "bytes": 1169
+      "sha256": "f17578a945421b661c453e733bb3d7ab132cf87f6df8bac7a8542d9f0df43352",
+      "bytes": 1361
     },
     {
       "path": "templates/ci/gitlab-aisdgs-gate.yml",

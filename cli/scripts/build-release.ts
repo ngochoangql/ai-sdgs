@@ -104,6 +104,41 @@ try {
   // Windows NTFS
 }
 
+// Generate CommonJS bundle for Node SEA (Single Executable Application)
+const cjsPreamble = `#!/usr/bin/env node
+// AI-SDGS Standalone CJS Bundle for Node SEA v${CLI_VERSION} (${RELEASE_ID})
+const crypto = require('node:crypto');
+const fs = require('node:fs');
+const http = require('node:http');
+const path = require('node:path');
+const { spawn, spawnSync } = require('node:child_process');
+const { parseArgs } = require('node:util');
+const readline = require('node:readline');
+const { fileURLToPath } = require('node:url');
+`;
+
+const cjsChunks: string[] = [cjsPreamble];
+for (let i = 1; i < bundledChunks.length - 1; i++) {
+  let chunk = bundledChunks[i];
+  chunk = chunk.replace(/fileURLToPath\(import\.meta\.url\)/g, '__filename');
+  chunk = chunk.replace(/import\.meta\.url/g, "'file:///' + __filename.replace(/\\\\/g, '/')");
+  if (i === bundledChunks.length - 2) {
+    // Strip trailing script runner in src/main.ts for SEA unconditional execution
+    chunk = chunk.replace(/const\s+selfPath\s*=\s*[\s\S]*$/, '');
+  }
+  cjsChunks.push(chunk);
+}
+cjsChunks.push(`
+const out = executeCli(process.argv.slice(2));
+if (out.stdout) process.stdout.write(out.stdout);
+if (out.stderr) process.stderr.write(out.stderr);
+process.exitCode = out.exitCode;
+module.exports = { executeCli };
+`);
+
+const standaloneCjsPath = path.join(DIST_DIR, 'aisdgs-standalone.cjs');
+writeFileAtomicLf(standaloneCjsPath, cjsChunks.join('\n'));
+
 // 3. Emit cross-platform launcher shims in dist/ + Node SEA configuration
 writeFileAtomicLf(
   path.join(DIST_DIR, 'aisdgs.cmd'),
@@ -121,7 +156,7 @@ writeFileAtomicLf(
   path.join(DIST_DIR, 'sea-config.json'),
   JSON.stringify(
     {
-      main: './aisdgs-standalone.mjs',
+      main: './aisdgs-standalone.cjs',
       output: './aisdgs-sea.blob',
       disableExperimentalSEAWarning: true,
       useCodeCache: false
