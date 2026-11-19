@@ -16,6 +16,7 @@
 3. **Scope & Protected Path Discipline (`STD-010-R01..03`):** Edit only files within authorized task/`CR-*` scope. Never run destructive commands (`git reset --hard`, `push --force`, `commit --no-verify`) without explicit human confirmation.
 4. **Secret & Prod Isolation (`STD-012-R01..02`):** Never hardcode, echo, or commit secrets/credentials/PII, or connect to live production infrastructure outside an authorized emergency session.
 5. **Evidence-Based Claims (`STD-009-R01..02`, `STD-011-R06`):** Never skip/weaken tests to fake green builds. Report work strictly as `PROPOSED`, `APPROVED`, `IMPLEMENTED` (untested), or `VERIFIED` (with actual command outputs).
+6. **Tool Interface Preference (`STD-011-R06`):** If native MCP tools (`aisdgs_validate`, `aisdgs_change_create`, `aisdgs_status`, etc.) are available in your tool environment, prioritize calling them directly over executing shell commands. Fall back to CLI execution (`aisdgs`) only when MCP is unavailable.
 
 ---
 

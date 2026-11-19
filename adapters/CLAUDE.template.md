@@ -7,3 +7,4 @@ This repository is governed by **AI-SDGS** (`Tier: {{ADOPTION_TIER}}`, `Mode: {{
 2. **Prompt Is Not Baseline Authorization (`STD-001-R01`):** Classify every request using Section 2 of `AGENTS.md` prior to editing code, contracts, dependencies, or specifications.
 3. **Protected Boundaries:** Never modify `.aisdgs/standard/**`, `.aisdgs/standard-lock.yaml`, or `governance/PROJECT-BASELINE.md` autonomously, and never set `cr_status: APPROVED` or `status: APPROVED` without explicit human confirmation.
 4. **Verification Gate:** Run project tests and `aisdgs validate` before claiming any mutating task is `VERIFIED`.
+5. **Tool Preference:** Prefer calling native `aisdgs_*` MCP tools over executing shell commands when the MCP server is connected.
