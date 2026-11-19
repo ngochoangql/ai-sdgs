@@ -1,10 +1,10 @@
 {
   "product": "AI-SDGS",
-  "cli_version": "1.0.0",
+  "cli_version": "1.0.1",
   "standard_version": "1.0.0",
   "release_id": "ai-sdgs-core-1.0.0",
   "hash_normalization": "SHA256-UTF8-LF",
-  "generated_at": "2026-11-19T05:40:06.194Z",
+  "generated_at": "2026-11-19T05:45:22.738Z",
   "bundle_file_count": 44,
   "files": [
     {

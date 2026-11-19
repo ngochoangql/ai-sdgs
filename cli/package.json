@@ -1,14 +1,14 @@
 {
   "name": "ai-sdgs",
-  "version": "1.0.0",
-  "description": "AI-SDGS Governance & Deterministic Enforcement CLI (Zero-Dependency Node.js v24 Native TypeScript)",
+  "version": "1.0.1",
+  "description": "AI-SDGS Governance & Deterministic Enforcement CLI (Zero-Dependency Node.js Native TypeScript)",
   "type": "module",
   "engines": {
     "node": ">=20.0.0"
   },
   "bin": {
-    "ai-sdgs": "./bin/aisdgs.mjs",
-    "aisdgs": "./bin/aisdgs.mjs"
+    "ai-sdgs": "bin/aisdgs.mjs",
+    "aisdgs": "bin/aisdgs.mjs"
   },
   "scripts": {
     "embed": "node ./scripts/embed-bundle.ts",

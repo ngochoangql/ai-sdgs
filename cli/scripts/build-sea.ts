@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { CLI_VERSION } from '../src/core/constants.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../..');
@@ -59,7 +60,7 @@ if (injectRes.status !== 0) {
 // 4. Test the generated executable
 console.log('[AI-SDGS SEA] Testing standalone binary...');
 const testRes = spawnSync(targetBinary, ['--version'], { encoding: 'utf8' });
-if (testRes.status === 0 && testRes.stdout.includes('1.0.0')) {
+if (testRes.status === 0 && testRes.stdout.includes(CLI_VERSION)) {
   console.log(`[AI-SDGS SEA] SUCCESS: Standalone executable created at ${targetBinary}`);
   console.log(`[AI-SDGS SEA] Output: ${testRes.stdout.trim()}`);
 } else {

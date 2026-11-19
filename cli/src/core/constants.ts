@@ -1,6 +1,6 @@
 import type { AdapterTarget, AdoptionTier } from './types.ts';
 
-export const CLI_VERSION = '1.0.0';
+export const CLI_VERSION = '1.0.1';
 export const STANDARD_VERSION = '1.0.0';
 export const RELEASE_ID = 'ai-sdgs-core-1.0.0';
 export const AI_NAME_GUARD = /^(AI-|ai-|bot|agent|claude|gemini|gpt|copilot)/i;

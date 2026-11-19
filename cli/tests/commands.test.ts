@@ -6,6 +6,7 @@ import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { runGit } from '../src/core/git-vcs.ts';
+import { CLI_VERSION } from '../src/core/constants.ts';
 import { executeCli } from '../src/main.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -194,6 +195,6 @@ describe('Phase 9 — All 11 aisdgs CLI Lifecycle Commands', () => {
   it('executes bin/aisdgs.mjs cleanly as an OS subprocess with exact exit codes', () => {
     const sub = spawnSync(process.execPath, [BIN_MJS, '--version'], { encoding: 'utf8' });
     assert.equal(sub.status, 0);
-    assert.equal(sub.stdout.trim(), '1.0.0');
+    assert.equal(sub.stdout.trim(), CLI_VERSION);
   });
 });

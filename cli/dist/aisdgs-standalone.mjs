@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// AI-SDGS Standalone Single-File Executable Bundle v1.0.0 (ai-sdgs-core-1.0.0)
+// AI-SDGS Standalone Single-File Executable Bundle v1.0.1 (ai-sdgs-core-1.0.0)
 // Zero external dependencies — embeds Standard v1.0.0, Schemas, Policies, Templates & Adapters.
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -11,7 +11,7 @@ import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
 // --- MODULE: src/core/constants.ts ---
-const CLI_VERSION = '1.0.0';
+const CLI_VERSION = '1.0.1';
 const STANDARD_VERSION = '1.0.0';
 const RELEASE_ID = 'ai-sdgs-core-1.0.0';
 const AI_NAME_GUARD = /^(AI-|ai-|bot|agent|claude|gemini|gpt|copilot)/i;
