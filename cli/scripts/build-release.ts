@@ -104,6 +104,11 @@ try {
   // Windows NTFS
 }
 
+// Also emit into cli/dist/ for npm distribution (Node >= 20 support without TS runtime)
+const cliDistMjsPath = path.join(CLI_ROOT, 'dist', 'aisdgs-standalone.mjs');
+fs.mkdirSync(path.dirname(cliDistMjsPath), { recursive: true });
+writeFileAtomicLf(cliDistMjsPath, finalMjs);
+
 // Generate CommonJS bundle for Node SEA (Single Executable Application)
 const cjsPreamble = `#!/usr/bin/env node
 // AI-SDGS Standalone CJS Bundle for Node SEA v${CLI_VERSION} (${RELEASE_ID})

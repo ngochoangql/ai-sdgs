@@ -4,7 +4,7 @@
   "description": "AI-SDGS Governance & Deterministic Enforcement CLI (Zero-Dependency Node.js v24 Native TypeScript)",
   "type": "module",
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=20.0.0"
   },
   "bin": {
     "ai-sdgs": "./bin/aisdgs.mjs",
@@ -22,6 +22,7 @@
   "files": [
     "bin",
     "src",
+    "dist",
     "scripts",
     "README.md"
   ],
