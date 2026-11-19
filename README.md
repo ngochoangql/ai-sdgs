@@ -41,6 +41,9 @@ node ./dist/aisdgs-standalone.mjs validate
 
 # 4. Start Native MCP (Model Context Protocol) Server for AI coding agents
 node ./dist/aisdgs-standalone.mjs mcp
+
+# 5. Launch Local Web Dashboard (Metrics, DAG Topology, Live Validator)
+node ./dist/aisdgs-standalone.mjs ui --port 4040 --open
 ```
 
 ### AI Coding Agent Setup via MCP (Claude Desktop, Cursor, Antigravity)

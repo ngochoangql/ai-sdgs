@@ -24,6 +24,7 @@ import {
 } from './commands/hooks-update.ts';
 import { runInit } from './commands/init.ts';
 import { startMcpServer } from './commands/mcp.ts';
+import { startUiServer } from './commands/ui.ts';
 import {
   runStandardList,
   runStandardShow,
@@ -55,6 +56,7 @@ Commands:
   update      --check | plan [--promote-tier <tier>] | apply --approver <human>
   report      [--format md|json] [--output <path>]
   mcp         Start native Model Context Protocol (MCP) server over stdio
+  ui          Start local web dashboard [--port <port>] [--open]
 
 Global Flags:
   --cwd <dir>   Target repository root (defaults to current directory)
@@ -111,6 +113,8 @@ export function executeCli(rawArgv: string[]): CliExecutionOutput {
         check: { type: 'boolean', default: false },
         'with-permissions': { type: 'boolean', default: false },
         rule: { type: 'string' },
+        port: { type: 'string' },
+        open: { type: 'boolean', default: false },
         anchor: { type: 'boolean', default: false },
         approver: { type: 'string' },
         bump: { type: 'string' },
@@ -432,6 +436,18 @@ export function executeCli(rawArgv: string[]): CliExecutionOutput {
       case 'mcp': {
         startMcpServer(cwd);
         return { exitCode: 0, stdout: '', stderr: '' };
+      }
+
+      case 'ui':
+      case 'dashboard': {
+        const port = typeof opts.port === 'string' ? Number.parseInt(opts.port, 10) : 4040;
+        const open = Boolean(opts.open);
+        startUiServer(cwd, { port, open });
+        return {
+          exitCode: 0,
+          stdout: `[AI-SDGS] Dashboard server started on http://localhost:${port}\n`,
+          stderr: ''
+        };
       }
 
       default:

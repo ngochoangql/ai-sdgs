@@ -28,6 +28,7 @@ const MODULE_ORDER = [
   'src/commands/audit-report.ts',
   'src/commands/hooks-update.ts',
   'src/commands/mcp.ts',
+  'src/commands/ui.ts',
   'src/main.ts'
 ] as const;
 
@@ -64,8 +65,9 @@ const preamble = `#!/usr/bin/env node
 // Zero external dependencies — embeds Standard v${STANDARD_VERSION}, Schemas, Policies, Templates & Adapters.
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import http from 'node:http';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
