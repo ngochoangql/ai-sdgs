@@ -23,6 +23,7 @@ import {
   runUpdatePlanOrCheck
 } from './commands/hooks-update.ts';
 import { runInit } from './commands/init.ts';
+import { startMcpServer } from './commands/mcp.ts';
 import {
   runStandardList,
   runStandardShow,
@@ -53,6 +54,7 @@ Commands:
   hooks       install | uninstall | status [--json]
   update      --check | plan [--promote-tier <tier>] | apply --approver <human>
   report      [--format md|json] [--output <path>]
+  mcp         Start native Model Context Protocol (MCP) server over stdio
 
 Global Flags:
   --cwd <dir>   Target repository root (defaults to current directory)
@@ -425,6 +427,11 @@ export function executeCli(rawArgv: string[]): CliExecutionOutput {
         const res = runAdapterSync(cwd);
         if (asJson) return { exitCode: res.exitCode, stdout: jsonEnvelope('adapter sync', res.ok, res.exitCode, res as unknown as Record<string, unknown>), stderr: '' };
         return { exitCode: res.exitCode, stdout: res.ok ? `[AI-SDGS] ${res.messages.join('\n')}\n` : '', stderr: res.ok ? '' : `[AI-SDGS] ${res.messages.join('\n')}\n` };
+      }
+
+      case 'mcp': {
+        startMcpServer(cwd);
+        return { exitCode: 0, stdout: '', stderr: '' };
       }
 
       default:

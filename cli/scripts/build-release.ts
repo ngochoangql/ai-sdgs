@@ -27,6 +27,7 @@ const MODULE_ORDER = [
   'src/commands/change.ts',
   'src/commands/audit-report.ts',
   'src/commands/hooks-update.ts',
+  'src/commands/mcp.ts',
   'src/main.ts'
 ] as const;
 
@@ -66,6 +67,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
+import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 `;
 

@@ -38,6 +38,24 @@ node ./dist/aisdgs-standalone.mjs hooks install
 
 # 3. Validate compliance (< 200ms across all 8 deterministic stages)
 node ./dist/aisdgs-standalone.mjs validate
+
+# 4. Start Native MCP (Model Context Protocol) Server for AI coding agents
+node ./dist/aisdgs-standalone.mjs mcp
+```
+
+### AI Coding Agent Setup via MCP (Claude Desktop, Cursor, Antigravity)
+
+Connect AI coding agents directly to AI-SDGS tools (`aisdgs_validate`, `aisdgs_change_create`, `aisdgs_status`) via standard stdio MCP:
+
+```json
+{
+  "mcpServers": {
+    "ai-sdgs": {
+      "command": "node",
+      "args": ["<path-to-ai-sdgs>/dist/aisdgs-standalone.mjs", "mcp"]
+    }
+  }
+}
 ```
 
 See:
