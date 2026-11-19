@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-sdgs.org/schemas/v1/config.schema.json",
+  "title": "AI-SDGS Project Configuration (.aisdgs/config.yaml)",
+  "description": "Validates project registration, adoption tier, onboarding pathway, human authority roles, protected paths, and enabled AI tool adapters.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project",
+    "governance",
+    "roles",
+    "protected_paths",
+    "adapters"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "registered_at"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-_]{1,62}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "registered_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["standard_version", "adoption_tier", "onboarding_mode"],
+      "properties": {
+        "standard_version": {
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+        },
+        "adoption_tier": {
+          "type": "string",
+          "enum": ["LITE", "STANDARD", "STRICT"]
+        },
+        "onboarding_mode": {
+          "type": "string",
+          "enum": ["GREENFIELD", "BROWNFIELD", "ITERATIVE"]
+        },
+        "strict_validation": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "roles": {
+      "type": "object",
+      "description": "Human Authority Role assignments (STD-001-R02, STD-001-R06). AI identifiers are strictly prohibited.",
+      "additionalProperties": false,
+      "required": ["HUM-OWNER", "HUM-PROD", "HUM-ARCH", "HUM-SEC"],
+      "properties": {
+        "HUM-OWNER": { "$ref": "#/$defs/humanAssignee" },
+        "HUM-PROD": { "$ref": "#/$defs/humanAssignee" },
+        "HUM-ARCH": { "$ref": "#/$defs/humanAssignee" },
+        "HUM-SEC": { "$ref": "#/$defs/humanAssignee" }
+      }
+    },
+    "protected_paths": {
+      "type": "array",
+      "description": "Repository globs requiring explicit CR or constitutional authorization before mutation (STD-010-R02, DEC-015).",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "adapters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root_router", "targets"],
+      "properties": {
+        "root_router": {
+          "type": "string",
+          "const": "AGENTS.md"
+        },
+        "targets": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["agents", "claude", "gemini", "cursor", "copilot", "kilocode"]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "humanAssignee": {
+      "type": "string",
+      "minLength": 2,
+      "not": {
+        "pattern": "^(AI-|ai-|bot|agent|claude|gemini|gpt|copilot)"
+      }
+    }
+  }
+}

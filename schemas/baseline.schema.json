@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-sdgs.org/schemas/v1/baseline.schema.json",
+  "title": "AI-SDGS Project Baseline Manifest (governance/PROJECT-BASELINE.md)",
+  "description": "Validates the cryptographic baseline manifest YAML frontmatter of governance/PROJECT-BASELINE.md (STD-005-R04, DEC-013, DEC-014).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "version",
+    "status",
+    "artifact_class",
+    "baseline_version",
+    "baseline_state",
+    "hash_normalization",
+    "last_updated",
+    "artifacts"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "const": "BASELINE-001"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "APPROVED", "AMENDING"]
+    },
+    "artifact_class": {
+      "type": "string",
+      "const": "CONSTITUTIONAL"
+    },
+    "baseline_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "baseline_state": {
+      "type": "string",
+      "enum": ["UNINITIALIZED", "ANCHORED", "LOCKED", "DRIFT_DETECTED"]
+    },
+    "hash_normalization": {
+      "type": "string",
+      "const": "SHA256-UTF8-LF"
+    },
+    "approved_by": {
+      "type": "string",
+      "minLength": 2,
+      "not": {
+        "pattern": "^(AI-|ai-|bot|agent|claude|gemini|gpt|copilot)"
+      }
+    },
+    "locked_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2}))?$"
+    },
+    "last_updated": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "CONSTITUTION",
+              "CONFIG",
+              "REQUIREMENT",
+              "ADR",
+              "CONTRACT_MD",
+              "CONTRACT_NATIVE"
+            ]
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "baseline_state": { "enum": ["ANCHORED", "LOCKED"] }
+        }
+      },
+      "then": {
+        "required": ["approved_by", "locked_at"],
+        "properties": {
+          "artifacts": { "minItems": 1 }
+        }
+      }
+    }
+  ]
+}

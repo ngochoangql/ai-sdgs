@@ -1,0 +1,40 @@
+# AI-SDGS Ring 3 Out-of-Band CI Governance Gate (STD-009-R08, STD-012-R03, DEC-007)
+# Copy to: .github/workflows/aisdgs-governance-gate.yml
+name: AI-SDGS Governance & Baseline Gate
+
+on:
+  pull_request:
+    branches: [main, master, trunk]
+  push:
+    branches: [main, master, trunk]
+
+permissions:
+  contents: read
+
+jobs:
+  governance-compliance:
+    name: L2 Deterministic Validation & Baseline Lock Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js v24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Verify Level 1 Standard Lockfile Integrity (STD-001-R05)
+        run: aisdgs standard verify-lock
+
+      - name: Run 8-Stage Deterministic L2 Validator (STD-009-R04)
+        run: aisdgs validate --strict
+
+      - name: Verify Cryptographic Project Baseline (STD-005-R04..05)
+        run: aisdgs baseline verify
+
+      - name: Archive Governance Posture Report
+        if: always()
+        run: aisdgs report --format json --output quality/reports/ci-compliance-posture.json

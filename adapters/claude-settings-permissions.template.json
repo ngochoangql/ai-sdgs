@@ -1,0 +1,25 @@
+{
+  "$comment": "AI-SDGS Ring 1 Sandbox Permission Preset for .claude/settings.json (STD-010-R08, DEC-007)",
+  "permissions": {
+    "deny": [
+      "Edit(.aisdgs/standard/**)",
+      "Edit(.aisdgs/schemas/**)",
+      "Edit(.aisdgs/policies/**)",
+      "Edit(.aisdgs/standard-lock.yaml)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Bash(git commit *--no-verify*)",
+      "Bash(git push *--force*)",
+      "Bash(git reset --hard*)"
+    ],
+    "ask": [
+      "Edit(governance/**)",
+      "Edit(.aisdgs/config.yaml)",
+      "Edit(.aisdgs/adoption-profile.yaml)",
+      "Edit(.github/workflows/**)",
+      "Bash(aisdgs baseline lock*)"
+    ]
+  }
+}

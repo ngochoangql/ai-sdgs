@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-sdgs.org/schemas/v1/standard-lock.schema.json",
+  "title": "AI-SDGS Standard Lockfile (.aisdgs/standard-lock.yaml)",
+  "description": "Validates the immutable local snapshot manifest and LF-normalized SHA-256 digests of Level 1 standards, policies, and schemas (STD-001-R05, DEC-013).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lockfile_version",
+    "standard_version",
+    "release_id",
+    "hash_normalization",
+    "installed_at",
+    "files"
+  ],
+  "properties": {
+    "lockfile_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "standard_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "release_id": {
+      "type": "string",
+      "minLength": 5
+    },
+    "hash_normalization": {
+      "type": "string",
+      "const": "SHA256-UTF8-LF"
+    },
+    "installed_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2}))?$"
+    },
+    "files": {
+      "type": "array",
+      "minItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "category", "sha256"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^\\.aisdgs/(standard|schemas|policies)/[A-Za-z0-9._/-]+$"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["STANDARD", "SCHEMA", "POLICY"]
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

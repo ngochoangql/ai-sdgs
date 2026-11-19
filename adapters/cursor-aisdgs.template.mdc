@@ -1,0 +1,13 @@
+---
+description: AI-SDGS Mandatory Root Governance Bridge ({{PROJECT_ID}} — {{ADOPTION_TIER}})
+globs:
+alwaysApply: true
+---
+<!-- aisdgs-sync: bridge=cursor config_sha256={{CONFIG_SHA256}} -->
+
+# AI-SDGS Governance Directive (Cursor Bridge)
+
+1. Read and strictly follow `AGENTS.md` at the workspace root before mutating any file (`STD-011-R04`).
+2. Treat every prompt as an input signal requiring classification (`AGENTS.md` §2), NOT automatic permission to alter approved baselines, dependencies, migrations, or contracts (`STD-001-R01`).
+3. Load `.aisdgs/policies/*.md` playbooks conditionally per `AGENTS.md` §4.
+4. Never self-approve `CR-*` records, modify `.aisdgs/standard/**`, or claim `VERIFIED` status without executing tests and `aisdgs validate`.

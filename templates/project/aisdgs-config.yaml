@@ -1,0 +1,54 @@
+schema_version: "1.0.0"
+
+project:
+  id: "{{PROJECT_ID}}"
+  name: "{{PROJECT_NAME}}"
+  description: "{{PROJECT_DESCRIPTION}}"
+  registered_at: "{{DATE_ISO}}"
+
+governance:
+  standard_version: "1.0.0"
+  adoption_tier: "{{ADOPTION_TIER}}"       # LITE | STANDARD | STRICT
+  onboarding_mode: "{{ONBOARDING_MODE}}"   # GREENFIELD | BROWNFIELD | ITERATIVE
+  strict_validation: {{STRICT_VALIDATION}} # false (LITE/STANDARD) | true (STRICT)
+
+roles:
+  HUM-OWNER: "{{HUM_OWNER}}"
+  HUM-PROD: "{{HUM_PROD}}"
+  HUM-ARCH: "{{HUM_ARCH}}"
+  HUM-SEC: "{{HUM_SEC}}"
+
+protected_paths:
+  # Group 1: AI-SDGS Local Snapshot & Configuration (STD-010-R02)
+  - ".aisdgs/**"
+  # Group 2: Constitutional Governance & Root AI Entrypoints
+  - "governance/**"
+  - "AGENTS.md"
+  - "CLAUDE.md"
+  - "GEMINI.md"
+  - ".cursor/rules/**"
+  # Group 3: Multi-Ecosystem Dependency Manifests & Lockfiles (STD-008-R03)
+  - "**/package.json"
+  - "**/package-lock.json"
+  - "**/pnpm-lock.yaml"
+  - "**/Cargo.toml"
+  - "**/Cargo.lock"
+  - "**/go.mod"
+  - "**/go.sum"
+  - "**/pyproject.toml"
+  - "**/poetry.lock"
+  - "**/*.csproj"
+  # Group 4: Persistent Migrations, Contracts & CI/CD Pipelines (STD-008-R04, STD-012-R03)
+  - "**/migrations/**"
+  - "docs/contracts/**"
+  - ".github/workflows/**"
+  - ".gitlab-ci.yml"
+  - "**/Dockerfile*"
+
+adapters:
+  root_router: "AGENTS.md"
+  targets:
+    - "agents"
+    - "claude"
+    - "gemini"
+    - "cursor"
