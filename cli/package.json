@@ -1,5 +1,5 @@
 {
-  "name": "@ai-sdgs/cli",
+  "name": "ai-sdgs",
   "version": "1.0.0",
   "description": "AI-SDGS Governance & Deterministic Enforcement CLI (Zero-Dependency Node.js v24 Native TypeScript)",
   "type": "module",
@@ -7,6 +7,7 @@
     "node": ">=24.0.0"
   },
   "bin": {
+    "ai-sdgs": "./bin/aisdgs.mjs",
     "aisdgs": "./bin/aisdgs.mjs"
   },
   "scripts": {

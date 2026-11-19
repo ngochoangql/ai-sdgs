@@ -1,4 +1,4 @@
-# @ai-sdgs/cli
+# ai-sdgs
 
 Deterministic AI Software Development Governance Standard (`AI-SDGS`) CLI and enforcement platform.
 
@@ -6,19 +6,19 @@ Deterministic AI Software Development Governance Standard (`AI-SDGS`) CLI and en
 
 ```bash
 # Initialize AI-SDGS in any project
-npx @ai-sdgs/cli init --tier standard --owner <your-name>
+npx ai-sdgs init --tier standard --owner <your-name>
 
 # Lock project baseline
-npx @ai-sdgs/cli baseline lock --approver <your-name>
+npx ai-sdgs baseline lock --approver <your-name>
 
 # Validate compliance (< 200ms across 8 stages)
-npx @ai-sdgs/cli validate
+npx ai-sdgs validate
 
 # Start Model Context Protocol (MCP) server for Claude / Cursor
-npx @ai-sdgs/cli mcp
+npx ai-sdgs mcp
 
 # Start local web dashboard
-npx @ai-sdgs/cli ui --port 4040 --open
+npx ai-sdgs ui --port 4040 --open
 ```
 
 ## Features
